@@ -39,9 +39,9 @@ function displayList(todo){
   btn.addEventListener('click', deleteTodo);
   const img = document.createElement('img');
   img.setAttribute('src', 'ressources/fermer.svg');
+  img.classList.add('delete');
   btn.appendChild(img);
   item.appendChild(btn);
-
 
   liste.appendChild(item);
   allTodos.push(item);

@@ -22,14 +22,18 @@ describe('example to-do app', () => {
 
   it('add todo', () => {
     cy.get('#item').click().type('Nouvelle todo') // select and type 'Nouvelle todo' into the 'input'
-    cy.get('#addTodo').click(); // click on the button for add the todo
-
+    cy.get('#addTodo').click(); // click on the button to add the todo
     //Check
-    
+
     cy.get('.liste-todo')
-      .contains('Nouvelle todo') // Verify if the todo is added
- 
+      .contains('Nouvelle todo') // Verify if the todo has been added
   })
 
-  
+  it('delete todo', () => {
+    cy.get('#item').click().type('Nouvelle todo') // select todo
+    //Check
+    cy.get('.liste-todo').should('have.length', 1)
+
+  })
+
 })

@@ -1,6 +1,6 @@
 describe('to-do app', () => {
   beforeEach(() => {
-    cy.visit('http://localhost:3000');
+    cy.visit('./index.html');
   });
 
   it('should contain 1 form', () => {
@@ -21,4 +21,18 @@ describe('to-do app', () => {
       .should('have.length', 3)
       .last().should('have.text', newItem);
   });
+
+  it('add todo ', () => {
+    cy.get('#item').click().type('Nouvelle todo') // select and type 'Nouvelle todo' into the 'input'
+    cy.get('#addTodo').click(); // click on the button to add the todo
+    //Check
+    cy.get('.liste-todo')
+      .contains('Nouvelle todo') // Verify if the todo has been added
+  })
+
+  it('delete todo', () => {
+    cy.get('#item').click().type('Nouvelle todo') // select button
+    //Check
+    cy.get('.delete').should('have.length', 2) // Verify todo deleted
+  })
 });
