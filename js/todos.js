@@ -1,3 +1,5 @@
+import Modal from "./modal.js";
+
 const form = document.getElementById("form");
 const input = document.getElementById("input");
 const todosUL = document.getElementById("todos");
@@ -38,33 +40,42 @@ function addTodo(todo) {
     const todoEl = document.createElement("li");
     const btnUpdate = document.createElement("div");
     const btnClose = document.createElement("div");
+    const checkbox = document.createElement("input");
+    checkbox.type = "checkbox";
+    checkbox.classList.add("checkbox");
     btnUpdate.classList.add("update");
     btnClose.classList.add("close");
 
     if (todo && todo.completed) {
       todoEl.classList.add("completed");
     }
-
     todoEl.innerText = todoText;
+    todoEl.appendChild(checkbox);
 
-    todoEl.addEventListener("click", () => {
+    checkbox.addEventListener("click", () => {
       todoEl.classList.toggle("completed");
       updateLS();
     });
 
     btnClose.addEventListener("click", () => {
-        todoEl.remove();
-        updateLS();
+      todoEl.remove();
+      updateLS();
     });
 
     btnUpdate.addEventListener("click", () => {
-        const newTodo = prompt("Update todo", todoText);
-        todoEl.innerText = newTodo;
-        todoEl.appendChild(btnUpdate);
-        todoEl.appendChild(btnClose);
-        updateLS();
+      const modal = new Modal({
+        title: "Update todo",
+        content: `<input type="text" class="input-modal" id="input-modal" value="${todoText}">`,
+        onSubmit: (newTodo) => {
+          todoEl.innerText = newTodo && newTodo.trim() ? newTodo : todoText;
+          todoEl.appendChild(btnUpdate);
+          todoEl.appendChild(btnClose);
+          updateLS();
+        }
+      });
+      modal.show();
     });
-
+    
     todoEl.appendChild(btnUpdate);
     todoEl.appendChild(btnClose);
     todosUL.appendChild(todoEl);
@@ -77,7 +88,7 @@ function addTodo(todo) {
 
 //update local storage
 function updateLS() {
-  todosEl = document.querySelectorAll("li");
+  const todosEl = document.querySelectorAll("li");
 
   const todos = [];
 
