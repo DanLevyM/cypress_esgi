@@ -1,3 +1,11 @@
+function createMyTodoList() {
+  cy.get('input')
+    .type('Learn Cypress {enter}')
+    .type('Learn React {enter}')
+    .type('Learn Node {enter}')
+    .type('Learn to code {enter}');
+}
+
 describe('to-do app', () => {
   beforeEach(() => {
     cy.visit('./index.html');
@@ -11,28 +19,31 @@ describe('to-do app', () => {
     cy.get('input').should('be.visible');
   });
 
-  it('should contain 2 todos', () => {
-    cy.get('ul li').should('have.length', 2);
+  it('create 4 todos', () => {
+    createMyTodoList();
   });
 
-  it('create 2 todos', () => {
-    cy.get('input').type('Buy milk');
-    cy.get('form').submit();
-    cy.get('input').type('Buy eggs');
-    cy.get('form').submit();
-    cy.get('ul').children().should('have.length', 4);
+  it('should contain 4 todos ', () => {
+    createMyTodoList();
+    cy.get('ul li').should('have.length', 4);
   });
 
   it('complete all todos', () => {
-    cy.get('ul li').each(($el, index, $list) => {
-      cy.wrap($el).click();
-    });
+    createMyTodoList();
+    cy.get('input[type=checkbox]').check();
     cy.get('ul li').should('have.class', 'completed');
-    cy.get('ul').children().should('have.length', 2);
   })
 
-  /* it('delete todo', () => {
-    cy.get('li').eq(1).find('div.close').click();
-    cy.get('ul').children().should('have.length', 1);
+  it('delete 1 todos', () => {
+    createMyTodoList();
+    cy.get('ul li div').eq(1)
+      .should('have.class', 'close')
+      .click();
+    cy.get('ul li').should('have.length', 3);
+  })
+
+  /* it('update todo', () => {
+    
   }) */
+
 }); 
