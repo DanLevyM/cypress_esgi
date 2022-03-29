@@ -41,12 +41,14 @@ function addTodo(todo) {
       todoEl.classList.add("completed");
     }
     // Add text to todo and the checkbox
-    todoEl.innerText = todoText;
+    todoEl.innerText = todoText; 
 
     // OnClick checkbox change class completed
     checkbox.addEventListener("click", () => {
       if (checkbox.checked) {
         todoEl.classList.add("completed");
+      } else {
+        todoEl.classList.remove("completed");
       }
       updateLS();
     });
