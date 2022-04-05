@@ -1,26 +1,22 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Todo Liste</title>
+    <link rel="stylesheet" href="./css/index.css">
 </head>
 <body>
-
-    <h1>To-dos</h1>
-
-    <form>
-        <label for="item">My new todo :</label>
-        <input type="text" id="item" placeholder="Add a todo">
-
-        <button type="submit">Send form</button>
-    </form>
-
-    <ul class="liste-todo">
-        
-    </ul>
-
-    <script src="app.js"></script>
+    <div class="container-title">
+        <h1>todos</h1>
+    </div>
+    <div class="container-todo">
+        <form id="form">
+            <input type="text" class="input" id="input" placeholder="Enter your todo" autocomplete="off">
+            <ul class="todos" id="todos"></ul>
+        </form>
+    </div>
+    <script type="module" src="./js/todos.js"></script>
 </body>
 </html>
